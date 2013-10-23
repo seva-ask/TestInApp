@@ -10,7 +10,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Com.Android.Vending.Billing;
 using System.Threading;
 
 namespace Omlet.Droid.Classes.BillingV3

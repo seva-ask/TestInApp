@@ -10,17 +10,17 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Com.Android.Vending.Billing;
+using Org.Onepf.Oms;
 
 
 namespace Omlet.Droid.Classes.BillingV3
 {
 	public class BillingServiceConnection : Java.Lang.Object, IServiceConnection
 	{
-		private readonly Action<IInAppBillingService> _serviceConnected;
+		private readonly Action<IOpenInAppBillingService> _serviceConnected;
 		private readonly Action _serviceDisconnected;
 	
-		public BillingServiceConnection(Action<IInAppBillingService> serviceConnected, Action serviceDisconnected)
+		public BillingServiceConnection(Action<IOpenInAppBillingService> serviceConnected, Action serviceDisconnected)
 		{
 			_serviceConnected = serviceConnected;
 			_serviceDisconnected = serviceDisconnected;
@@ -28,7 +28,7 @@ namespace Omlet.Droid.Classes.BillingV3
 
 		public void OnServiceConnected(ComponentName name, IBinder service)
 		{
-			var resultService = IInAppBillingServiceStub.AsInterface(service);
+			var resultService = IOpenInAppBillingServiceStub.AsInterface(service);
 			_serviceConnected(resultService);
 		}
 		

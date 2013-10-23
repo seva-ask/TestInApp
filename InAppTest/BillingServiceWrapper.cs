@@ -10,7 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Com.Android.Vending.Billing;
+using Org.Onepf.Oms;
 using System.Threading;
 
 namespace Omlet.Droid.Classes.BillingV3
@@ -23,7 +23,7 @@ namespace Omlet.Droid.Classes.BillingV3
 
 		private bool _isServiceBinded = false;
 
-		private IInAppBillingService _service;
+		private IOpenInAppBillingService _service;
 
 		private BillingServiceConnection _serviceConnection;
 
@@ -51,7 +51,7 @@ namespace Omlet.Droid.Classes.BillingV3
 			}
 		}
 
-		private void ServiceConnectedHandler(IInAppBillingService service)
+		private void ServiceConnectedHandler(IOpenInAppBillingService service)
 		{
 			_service = service;
 			ThreadPool.QueueUserWorkItem((st) =>
