@@ -44,7 +44,7 @@ namespace Omlet.Droid.Classes.BillingV3
 			Intent intentAppstoreServices = new Intent(BIND_INTENT);
 			var infoList = packageManager.QueryIntentServices(intentAppstoreServices, 0);
 
-			var info = infoList[0];
+			var info = infoList[0]; // check names for yandex store or getupps
 
 			String packageName = info.ServiceInfo.PackageName;
 			String name = info.ServiceInfo.Name;
