@@ -12,6 +12,8 @@ using Android.Views;
 using Android.Widget;
 using Org.Onepf.Oms;
 using System.Threading;
+using Android.Content.PM;
+using InAppTest;
 
 namespace Omlet.Droid.Classes.BillingV3
 {
@@ -31,24 +33,39 @@ namespace Omlet.Droid.Classes.BillingV3
 
 		private Action<bool> _initializationFinishedCallback;
 
+		private const string BIND_INTENT = "org.onepf.oms.openappstore.BIND";
+
 		public BillingServiceWrapper(Context context, Action<bool> initializationFinishedCallback)
 		{
 			_context = context;
 			_initializationFinishedCallback = initializationFinishedCallback;
 
-			_serviceConnection = new BillingServiceConnection(ServiceConnectedHandler, () => _isServiceBinded = false );
-			
-			Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
-			
-			if (_context.PackageManager.QueryIntentServices(serviceIntent, 0).Any())
+			PackageManager packageManager = _context.PackageManager;
+			Intent intentAppstoreServices = new Intent(BIND_INTENT);
+			var infoList = packageManager.QueryIntentServices(intentAppstoreServices, 0);
+
+			var info = infoList[0];
+
+			String packageName = info.ServiceInfo.PackageName;
+			String name = info.ServiceInfo.Name;
+			Intent intentAppstore = new Intent(intentAppstoreServices);
+			intentAppstore.SetClassName(packageName, name);
+			_context.BindService (intentAppstore, new OpenAppstoreConnection (openAppstoreService =>
 			{
-				_context.BindService(serviceIntent, _serviceConnection, Bind.AutoCreate);
-				_isServiceBinded = true;
-			}
-			else
-			{
-				_initializationFinishedCallback(false);
-			}
+				_serviceConnection = new BillingServiceConnection(ServiceConnectedHandler, () => _isServiceBinded = false );
+
+				Intent serviceIntent = openAppstoreService.GetBillingServiceIntent();//new Intent("com.android.vending.billing.InAppBillingService.BIND");
+
+				if (_context.PackageManager.QueryIntentServices(serviceIntent, 0).Any())
+				{
+					_context.BindService(serviceIntent, _serviceConnection, Bind.AutoCreate);
+					_isServiceBinded = true;
+				}
+				else
+				{
+					_initializationFinishedCallback(false);
+				}
+			}, null), Bind.AutoCreate);
 		}
 
 		private void ServiceConnectedHandler(IOpenInAppBillingService service)

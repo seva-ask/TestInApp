@@ -76,6 +76,7 @@
     <Compile Include="Encoder.cs" />
     <Compile Include="Aidl\IOpenAppstore.cs" />
     <Compile Include="Aidl\IOpenInAppBillingService.cs" />
+    <Compile Include="OpenAppstoreConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

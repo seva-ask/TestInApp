@@ -19,7 +19,7 @@ namespace InAppTest
 //#if DEBUG
 //			get { return "android.test.purchased"; }
 //#else
-			get { return "android.test.purchased"; }
+			get { return "test.test.tt"; }
 //#endif
 			
 		}

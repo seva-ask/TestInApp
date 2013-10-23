@@ -279,7 +279,13 @@ namespace Org.Onepf.Oms
 					__data.WriteInterfaceToken (descriptor);
 					remote.Transact (IOpenAppstoreStub.TransactionGetBillingServiceIntent, __data, __reply, 0);
 					__reply.ReadException ();
-					__result = Android.Content.Intent.Creator.CreateFromParcel(__reply) as Android.Content.Intent;
+					if ((0!=__reply.ReadInt()))
+					{
+						__result = Android.Content.Intent.Creator.CreateFromParcel(__reply) as Android.Content.Intent;
+					}
+					else {
+						__result = null;
+					}
 
 				} finally {
 					__reply.Recycle ();
