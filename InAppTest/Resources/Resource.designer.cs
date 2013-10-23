@@ -19,9 +19,9 @@ namespace InAppTest
 	public partial class Resource
 	{
 		
-		Resource()
+		static Resource()
 		{
-			global::Android.Runtime.ResourceIdManager.UpdateIdValues ();
+			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 		}
 		
 		public static void UpdateIdValues()
@@ -30,6 +30,11 @@ namespace InAppTest
 		
 		public partial class Attribute
 		{
+			
+			static Attribute()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
 			
 			private Attribute()
 			{
@@ -41,6 +46,11 @@ namespace InAppTest
 			
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
+			
+			static Drawable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
 			
 			private Drawable()
 			{
@@ -55,6 +65,11 @@ namespace InAppTest
 			
 			// aapt resource value: 0x7f030000
 			public const int hello = 2130903040;
+			
+			static String()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
 			
 			private String()
 			{

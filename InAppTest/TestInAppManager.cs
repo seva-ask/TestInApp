@@ -19,7 +19,7 @@ namespace InAppTest
 //#if DEBUG
 //			get { return "android.test.purchased"; }
 //#else
-			get { return "film.buy.0.99"; }
+			get { return "android.test.purchased"; }
 //#endif
 			
 		}
